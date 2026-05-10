@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Taste of Home | Contact</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <a href="index.html">Taste of Home</a>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </header>
+
+  <section class="page-header">
+    <h1>Contact us</h1>
+    <p>Questions, catering, or feedback? We’d love to hear from you.</p>
+  </section>
+
+  <section class="contact container">
+    <form id="contact-form" class="card" novalidate>
+      <div class="form-row">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Your full name" required />
+        <small class="error" data-for="name"></small>
+      </div>
+
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        <small class="error" data-for="email"></small>
+      </div>
+
+      <div class="form-row">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Tell us what’s on your mind" required></textarea>
+        <small class="error" data-for="message"></small>
+      </div>
+
+      <button class="btn btn-full" type="submit">Send message</button>
+      <p id="form-status" class="status"></p>
+    </form>
+
+    <div class="card contact-info">
+      <h3>Visit us</h3>
+      <p>Prahladnagar, Ahmedabad, Gujarat</p>
+      <p>Open daily: 11:00–22:00</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>© 2026 Taste of Home — Ahmedabad, Gujarat</p>
+  </footer>
+
+  <script>
+    // Minimal client-side validation and mock submission
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('form-status');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fields = ['name','email','message'];
+      let valid = true;
+
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        const err = document.querySelector(`.error[data-for="${id}"]`);
+        if (!el.value.trim()) {
+          err.textContent = 'This field is required.';
+          valid = false;
+        } else if (id === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value)) {
+          err.textContent = 'Please enter a valid email.';
+          valid = false;
+        } else {
+          err.textContent = '';
+        }
+      });
+
+      if (!valid) return;
+
+      status.textContent = 'Thanks! Your message has been sent.';
+      status.classList.add('success');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
